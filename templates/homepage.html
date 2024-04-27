@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard and Homepage</title>
+    <style>
+        /* Resetting default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Dashboard container */
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Homepage container */
+        .homepage-container {
+            padding: 20px;
+        }
+
+        /* Header */
+        .header h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Content */
+        .content p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'newhomepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'leave_request' %}">Leave Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'leave_list' %}">Leave List</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="nav-link">Welcome, {{ user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup1' %}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login1' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Welcome to the Dashboard</h2>
+            <p>This is the main content of the dashboard.</p>
+        </div>
+    </div>
+
+    <!-- Homepage -->
+    <div class="homepage-container">
+        <div class="header">
+            <h1>Welcome to the Homepage</h1>
+        </div>
+        <div class="content">
+            <p>This is the main content of the homepage.</p>
+        </div>
+    </div>
+</body>
+</html>

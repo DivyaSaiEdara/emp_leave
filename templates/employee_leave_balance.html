@@ -1,0 +1,7 @@
+{% extends 'hr_navbar.html' %}
+{% block title %}Employee Leave Balance{% endblock %}
+
+{% block content %}
+    <h1>Leave Balance for {{ employee.name }}</h1>
+    <p>Total Leave Balance: {{ employee.leave_balance }}</p>
+{% endblock %}

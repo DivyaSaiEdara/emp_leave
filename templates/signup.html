@@ -1,0 +1,135 @@
+{% load static %}
+<html>
+<head>
+    <title>SIGNUP</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+    <style>
+        /* Add your custom CSS styling here */
+        /* For example, you can style form elements */
+        body {
+            background-image: url('{% static "images/background.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            padding: 0;
+        }
+        .container1 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            border: 2px solid #ccc;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+{% block body %}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %} <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+{% endif %}
+<center>
+<div class="container1">
+    <h1>Signup</h1>
+    <form method="post" action="{% url 'signup1' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <label for="first_name">First Name</label><br>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter First Name" required><br>
+        <label for="last_name">Last Name</label><br>
+        <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name" required><br>
+        <label for="username">Username</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter EMP ID" required><br>
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" placeholder="Enter Email" required><br>
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <span id="password-error" class="error-message"></span><br>
+        <label for="password1">Confirm Password</label><br>
+        <input type="password" id="password1" name="password1" required><br>
+        <span id="confirm-password-error" class="error-message"></span><br>
+        <button type="submit" name="submit">SUBMIT</button>
+    </form>
+</div>
+</center>
+
+<script>
+    function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("password1").value;
+        var passwordError = document.getElementById("password-error");
+        var confirmPasswordError = document.getElementById("confirm-password-error");
+
+        // Password length check
+        if (password.length < 8) {
+            passwordError.textContent = "Password must be at least 8 characters long";
+            return false;
+        } else {
+            passwordError.textContent = "";
+        }
+
+        // Password contains symbol check
+        if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+            passwordError.textContent = "Password must contain at least one symbol";
+            return false;
+        } else {
+            passwordError.textContent = "";
+        }
+
+        // Password contains uppercase letter check
+        if (!/[A-Z]/.test(password)) {
+            passwordError.textContent = "Password must contain at least one uppercase letter";
+            return false;
+        } else {
+            passwordError.textContent = "";
+        }
+
+        // Password match check
+        if (password !== confirm_password) {
+            confirmPasswordError.textContent = "Passwords do not match";
+            return false;
+        } else {
+            confirmPasswordError.textContent = "";
+        }
+
+        return true;
+    }
+</script>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+<head>
+    <title>LOGIN</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS for background image */
+        body {
+            background-image: url('https://source.unsplash.com/1920x1080/?office'); /* Office-related image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CSS for form container */
+        .container1 {
+            background-color: rgba(255, 255, 255, 0.8); /* Light color with transparency */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 100px; /* Adjust margin-top as needed */
+        }
+    </style>
+</head>
+<body>
+{% block body %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script>alert("{{ message }}")</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <center>
+        <div class="container1">
+            <div class="bodycontainer">
+                <h1>Login</h1>
+                <form method="post" action="{% url 'login1' %}">
+                    {% csrf_token %}
+                    <label>Username</label><br>
+                    <input type="text" name="username" placeholder="Username"><br><br>
+                    <label>Password</label><br>
+                    <input type="password" name="password"><br><br>
+                    <button type="submit" name="SUBMIT" class="btn btn-primary">Submit</button>
+                    <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign up now</a></p>
+                </form>
+            </div>
+        </div>
+    </center>
+{% endblock %}
+</body>
+</html>

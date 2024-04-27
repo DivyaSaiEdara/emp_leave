@@ -1,0 +1,12 @@
+{% extends 'hr_navbar.html' %}
+{% block title %}Employee List{% endblock %}
+
+{% block content %}
+    {% include 'hr_navbar.html' %}
+    <h1>Employee List</h1>
+    <ul>
+        {% for employee in employees %}
+            <li>{{ employee.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
